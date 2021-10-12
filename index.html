@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Frontend Mentor | Todo app</title>
+  </head>
+  <body>
+    <div class="banner"></div>
+    <div class="todo-app">
+      <header>
+        <h1>TODO</h1>
+        <img src="images/icon-sun.svg" alt="theme icon light" />
+      </header>
+      <div class="input-card">
+        <span></span>
+        <input type="text" name="todo" placeholder="Create a new todo..." />
+      </div>
+      <div class="list"></div>
+
+      <div class="filter">
+        <p class="items-count">0 items left</p>
+        <div class="switch">
+          <button class="switch-active">All</button>
+          <button>Active</button>
+          <button>Completed</button>
+        </div>
+        <button class="clear">Clear Completed</button>
+      </div>
+    </div>
+    <!-- Todo
+
+    Add dynamic number
+    items left All Active Completed Clear Completed Drag and drop to reorder
+    list -->
+    <footer>
+      <div class="attribution">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="#">Your Name Here</a>.
+      </div>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
