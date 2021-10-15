@@ -38,6 +38,7 @@ body {
   height: 100vh;
   font-size: 1.8rem;
   font-family: 'Josefin Sans', sans-serif;
+  padding-top: 8rem;
 }
 
 .banner {
@@ -54,11 +55,9 @@ body {
 }
 
 .todo-app {
-  position: absolute;
-  top: 8rem;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto 8rem auto;
   width: 550px;
+  position: relative;
 }
 .todo-app header {
   width: 100%;
@@ -151,12 +150,12 @@ input {
   pointer-events: none;
   transition: 0.3s;
 }
-.border .check-active {
+.complete .left-part .border span {
   background: var(--check-background);
   width: 3rem;
   height: 3rem;
 }
-.border .check-active img {
+.complete .left-part .border img {
   opacity: 1;
 }
 .left-part {
@@ -169,7 +168,7 @@ input {
   transition: 0.3s;
   pointer-events: none;
 }
-.left-part .complete {
+.complete .left-part p {
   text-decoration: line-through;
   color: var(--very-dark-greyish-blue);
 }
@@ -199,7 +198,8 @@ input {
   color: var(--dark-greyish-blue);
   font-size: 1.4rem;
 }
-.filter button {
+.filter button,
+.filter .clear {
   font-family: 'Josefin Sans', sans-serif;
   color: var(--dark-greyish-blue);
   font-size: 1.4rem;
@@ -218,8 +218,6 @@ input {
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 10rem;
   display: flex;
@@ -233,4 +231,27 @@ footer {
 }
 .attribution a {
   color: var(--bright-blue);
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 50%;
+  }
+  .todo-app {
+    width: 95%;
+  }
+  .filter {
+    flex-wrap: wrap;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .filter {
+    justify-content: center;
+  }
+  .switch {
+    margin-left: 2rem;
+  }
+  .filter .clear {
+    margin-top: 2rem;
+  }
 }

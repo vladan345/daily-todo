@@ -1,19 +1,10 @@
-// const item = document.querySelectorAll('.item');
-// const itemText = document.querySelector('.task');
-// const check = document.querySelector('.border');
-
-// for (let i = 0; i < item.length; i++) {
-//   item[i].addEventListener('click', function toggleActive() {
-//     item[i].childNodes[1].childNodes[1].childNodes[1].classList.toggle(
-//       'check-active'
-//     );
-//     item[i].childNodes[1].childNodes[3].classList.toggle('complete');
-//   });
-// }
 const list = document.querySelector('.list');
 const input = document.querySelector('input');
 
 const itemsCount = document.querySelector('.items-count');
+
+const clear = document.querySelector('.clear');
+const buttons = document.querySelectorAll('.switch button');
 
 var listArray = [];
 var ids = 0;
@@ -53,8 +44,18 @@ function reloadDom(array) {
     list.innerHTML += item.renderItem();
   });
   input.value = '';
-  itemsCount.innerHTML = `${listArray.length} items left`;
-  console.log(listArray);
+  updateStyle(array);
+  reloadCounter(array);
+}
+
+function reloadCounter(array) {
+  let counter = 0;
+  array.forEach(function checkStatus(item) {
+    if (item.status != 'completed') {
+      counter++;
+    }
+  });
+  itemsCount.innerHTML = `${counter} items left`;
 }
 
 function deleteItem(event) {
@@ -65,6 +66,8 @@ function deleteItem(event) {
     }),
     1
   );
+  removeClass();
+  buttons[0].classList.add('switch-active');
   reloadDom(listArray);
 }
 
@@ -76,19 +79,69 @@ function changeState(event) {
     });
     if (listArray[index].status != 'completed') {
       listArray[index].status = 'completed';
+    } else {
+      listArray[index].status = 'notcompleted';
     }
     updateStyle(listArray);
+    reloadCounter(listArray);
+    removeClass();
+    buttons[0].classList.add('switch-active');
   }
 }
 
 function updateStyle(array) {
   array.forEach(function changeStyle(item) {
+    const divItem = document.getElementById(item.id);
     if (item.status == 'completed') {
-      console.log(item.id);
-      const parag = document.querySelector(`#${item.id}.item .left-part p`);
-      console.log(parag);
+      divItem.classList.add('complete');
+    } else {
+      divItem.classList.remove('complete');
     }
   });
 }
 
+function clearCompleted() {
+  listArray = listArray.filter(function filterCompleted(item) {
+    return item.status == 'notcompleted';
+  });
+  removeClass();
+  buttons[0].classList.add('switch-active');
+  reloadDom(listArray);
+}
+
+function swtichHandler(event) {
+  removeClass();
+  let arrayCopy = [...listArray];
+  switch (event.target.innerText) {
+    case 'Active':
+      event.target.classList.add('switch-active');
+      arrayCopy = arrayCopy.filter(function filterCompleted(item) {
+        return item.status == 'notcompleted';
+      });
+      reloadDom(arrayCopy);
+      break;
+    case 'Completed':
+      event.target.classList.add('switch-active');
+      arrayCopy = arrayCopy.filter(function filterCompleted(item) {
+        return item.status == 'completed';
+      });
+      reloadDom(arrayCopy);
+      break;
+    case 'All':
+      event.target.classList.add('switch-active');
+      reloadDom(listArray);
+      break;
+  }
+}
+
+function removeClass() {
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove('switch-active');
+  }
+}
+
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener('click', swtichHandler);
+}
+clear.addEventListener('click', clearCompleted);
 window.addEventListener('keyup', uploadNewTask);
